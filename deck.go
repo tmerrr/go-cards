@@ -10,7 +10,6 @@ import (
 )
 
 // Create a new type of Deck, will be Slice of strings
-
 type deck []string
 
 func newDeck() deck {
@@ -37,14 +36,6 @@ func (d deck) print() {
 	}
 }
 
-// select range from slice
-// sliceName[startIndexIncluding : upToNotIncluding]
-// fruits := []string{"apple", "banana", "grape", "orange"}
-// fruits[0:2] same as fruits[:2] - start from begining
-// => ["apple", "banana"]
-// fruits[2:] - go to end
-// => ["grape", "orange"]
-
 // function takes deck and integer
 // returns 2 instances of deck
 func deal(d deck, handSize int) (deck, deck) {
@@ -55,14 +46,10 @@ func (d deck) toString() string {
 	return strings.Join(d, ",")
 }
 
-// could pass in filename, decide later
 func (d deck) saveToFile(filename string) error {
-	// last argument is permissions
-	// 0666 means anyone can read or write to file
 	return ioutil.WriteFile("./db/"+filename, []byte(d.toString()), 0666)
 }
 
-// Could take filename as arg
 func newDeckFromFile(filename string) deck {
 	bs, err := ioutil.ReadFile("./db/" + filename)
 	if err != nil {
@@ -79,10 +66,9 @@ func (d deck) shuffle() {
 	source := rand.NewSource(t)
 	r := rand.New(source)
 
-	// iterate over array
 	for i := range d {
-		newPosition := r.Intn(len(d) - 1)
 		// swap current element with random element
+		newPosition := r.Intn(len(d) - 1)
 		d[i], d[newPosition] = d[newPosition], d[i]
 	}
 }
